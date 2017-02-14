@@ -9,7 +9,7 @@ class ispprotect::scheduler {
   $scan_target = $ispprotect::scan_target
   $license = $ispprotect::license
   $mail_recipient = $ispprotect::mail_recipient
-  
+
   case $scan_frequency {
     'daily':  {  }
     'weekly': { $weekday=6 }
@@ -21,11 +21,14 @@ class ispprotect::scheduler {
   } else {
     $scan_key="${basedir}/etc/license"
   }
-  cron { "ISPProtect scheduled scanner update":
-    command => "${basedir}/lib/ispp_scan.php --update --scan-key=${scan_key}"
+  cron { 'ISPProtect scheduled scanner update':
+    command => "${basedir}/lib/ispp_scan.php --update --scan-key=${scan_key}",
+    hour    => $scan_hour,
+    weekday => $weekday,
+    minute  => '1',
   }
 
-  cron { "ISPProtect scheduled scan":
+  cron { 'ISPProtect scheduled scan':
     command => "/bin/sleep $[ ( \$RANDOM % ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key}",
     hour    => $scan_hour,
     weekday => $weekday,
