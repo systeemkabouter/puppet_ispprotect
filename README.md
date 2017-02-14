@@ -14,70 +14,91 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
+This module installs, configures and schedules the ISPProtect php malware scanner
+on a node.
 
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+The module downloads the package from ispprotect.com or a custom URL. After that,
+it unpacks and configures the package. Lastly the module schedules auto updates
+for the scanner and actual scanning of a directory tree.
 
 ## Setup
 
-### What ispprotect affects **OPTIONAL**
+### What ispprotect affects
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+This module installs the clamav package by default, you can prevent this by
+setting the manage_clamav parameter to false.
 
-If there's more that they should know about, though, this is the place to mention:
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
 
 ### Beginning with ispprotect
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+Apart from the mail_recipient parameter, it should be usable using the defaults.
+For real work you will need a license key, the trail expires after just a number
+of tries.
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+class { 'ispprotect':
+  mail_recipient => 'you@example.com',
+  scan_target => '/var/www/mywebsite',
+}
 
 ## Reference
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+* `license`
+
+The commercial license that was obtained.
+
+* `basedir`
+
+Directory under where to install the payload and helper files.
+
+* `payload_url`
+
+Web address where to download the software. Defaults to the ispprotect official
+website, but may point at an internal distribution server.
+
+* `scan_target`
+
+base directory that needs to be scanned using the payload. Defaults to '/var/www/html'
+
+* `scan_frequency`
+
+Set the scan frequency to daily or weekly. Defaults to daily
+
+* `manage_clamav`
+
+Ensures the package clamav is installed, defaults to true
+
+* `scan_hour`
+
+The hour of the day the scan is scheduled to start.
+
+* `scan_minute`
+
+The minute the crobjob will start. Please note that default a RANDOM
+sleep is performed before starting the actual scan.
+
+* `may_delay`
+
+The maximum number of seconds the start of the scan will be delayed
+
+
+* `mail_recipient`
+
+The email address to sent reports to.
+
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+Currently only tested on Red Hat Enterprise Linux 7. RHEL6 will be tested soon. 
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+This module is new and a 'early' release. PR for more parameters or support for
+other OS versions welcome.
 
-## Release Notes/Contributors/Etc. **Optional**
+## Disclaimer
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
+This module is provided as-is. The author is an independant consultant without
+other ties to ISPProtect than as a user / consumer. Product related questions
+should be directed at ispprotect.com.
