@@ -37,10 +37,12 @@ of tries.
 
 ## Usage
 
+```
 class { 'ispprotect':
   mail_recipient => 'you@example.com',
   scan_target => '/var/www/mywebsite',
 }
+```
 
 ## Reference
 
@@ -90,7 +92,7 @@ The email address to sent reports to.
 
 ## Limitations
 
-Currently only tested on Red Hat Enterprise Linux 7. RHEL6 will be tested soon. 
+Currently only tested on Red Hat Enterprise Linux 7. RHEL6 will be tested soon.
 
 ## Development
 
