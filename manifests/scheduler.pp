@@ -22,7 +22,7 @@ class ispprotect::scheduler {
     $scan_key="${basedir}/etc/license"
   }
   cron { 'ISPProtect scheduled scanner update':
-    command => "${basedir}/lib/ispp_scan.php --update --scan-key=${scan_key}",
+    command => "${basedir}/lib/ispp_scan --update --scan-key=${scan_key}",
     hour    => $scan_hour,
     weekday => $weekday,
     minute  => '1',
