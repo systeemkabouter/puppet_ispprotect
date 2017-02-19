@@ -1,14 +1,14 @@
 # manages the cronjob to run ISPProtect
 class ispprotect::scheduler {
 
-  $basedir = $ispprotect::basedir
-  $scan_frequency = $ispprotect::scan_frequency
-  $scan_hour = $ispprotect::scan_hour
-  $scan_minute = $ispprotect::scan_minute
-  $max_delay = $ispprotect::max_delay
-  $scan_target = $ispprotect::scan_target
-  $license = $ispprotect::license
-  $mail_recipient = $ispprotect::mail_recipient
+  $basedir = $::ispprotect::basedir
+  $scan_frequency = $::ispprotect::scan_frequency
+  $scan_hour = $::ispprotect::scan_hour
+  $scan_minute = $::ispprotect::scan_minute
+  $max_delay = $::ispprotect::max_delay
+  $scan_target = $::ispprotect::scan_target
+  $license = $::ispprotect::license
+  $mail_recipient = $::ispprotect::mail_recipient
 
   case $scan_frequency {
     'daily':  {  }

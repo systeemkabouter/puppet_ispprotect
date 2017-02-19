@@ -87,7 +87,7 @@
 #
 # Copyright 2017 Maljaars IT / Erasmus University Rotterdam
 #
-class ispprotect(
+class ispprotect (
 
   $license = undef,
   $manage_license = true,
@@ -99,14 +99,14 @@ class ispprotect(
   $scan_hour = '3',
   $scan_minute = '17',
   $max_delay = '300',
-  $mail_recipient = "root@$::fqdn",
+  $mail_recipient = "root@${::fqdn}",
 
 ) {
 
-  contain ispprotect::install
+  contain ::ispprotect::install
   if $manage_license {
-    contain ispprotect::license
+    contain ::ispprotect::license
   }
-  contain ispprotect::scheduler
+  contain ::ispprotect::scheduler
 
 }
