@@ -25,7 +25,7 @@ class ispprotect::install {
 
   exec { 'unpack_payload':
     command => "/bin/tar -xf ${basedir}/tmp/ispp_scan.tar.gz --directory ${basedir}/lib/",
-    creates => '/opt/ispprotect/lib/ispp_scan.php',
+    creates => "${basedir}/lib/ispp_scan.php",
   }
 
 }
