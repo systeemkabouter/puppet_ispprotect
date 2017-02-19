@@ -1,9 +1,9 @@
 # downloads and installs the ISPProtect archive
 class ispprotect::install {
 
-  $basedir = $ispprotect::basedir
-  $payload_url = $ispprotect::payload_url
-  $manage_clamav = $ispprotect::manage_clamav
+  $basedir = $::ispprotect::basedir
+  $payload_url = $::ispprotect::payload_url
+  $manage_clamav = $::ispprotect::manage_clamav
 
   $skeleton = [$basedir, "${basedir}/bin", "${basedir}/tmp", "${basedir}/lib"]
 
@@ -13,9 +13,9 @@ class ispprotect::install {
 
   file { $skeleton:
     ensure => 'directory',
-    owner => 'root',
-    group => 'root',
-    mode => '0550'
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0550'
   } ->
 
   exec { 'fetch_payload':
@@ -25,7 +25,7 @@ class ispprotect::install {
 
   exec { 'unpack_payload':
     command => "/bin/tar -xf ${basedir}/tmp/ispp_scan.tar.gz --directory ${basedir}/lib/",
-    creates => '/opt/ispprotect/lib/ispp_scan.php',
+    creates => "${basedir}/lib/ispp_scan.php",
   }
 
 }

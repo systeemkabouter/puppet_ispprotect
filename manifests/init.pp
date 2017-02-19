@@ -23,11 +23,13 @@
 # Variables
 # ----------
 #
-# Here you should define a list of variables that this module would require.
-#
 # * `license`
 #
 # The commercial license that was obtained.
+#
+# * `manage_license`
+#
+# Whether the license material should managed by this module. Defaults to true.
 #
 # * `basedir`
 #
@@ -85,9 +87,10 @@
 #
 # Copyright 2017 Maljaars IT / Erasmus University Rotterdam
 #
-class ispprotect(
+class ispprotect (
 
   $license = undef,
+  $manage_license = true,
   $basedir = '/opt/ispprotect',
   $payload_url = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
   $scan_target = '/var/www/html',
@@ -96,12 +99,14 @@ class ispprotect(
   $scan_hour = '3',
   $scan_minute = '17',
   $max_delay = '300',
-  $mail_recipient = "root@$::fqdn",
+  $mail_recipient = "root@${::fqdn}",
 
 ) {
 
-  contain ispprotect::install
-  contain ispprotect::license
-  contain ispprotect::scheduler
+  contain ::ispprotect::install
+  if $manage_license {
+    contain ::ispprotect::license
+  }
+  contain ::ispprotect::scheduler
 
 }
