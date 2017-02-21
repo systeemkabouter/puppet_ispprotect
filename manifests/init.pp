@@ -42,10 +42,6 @@
 #
 # base directory that needs to be scanned using the payload. Defaults to '/var/www/html'
 #
-# * `scan_frequency`
-#
-# Set the scan frequency to daily or weekly. Defaults to daily
-#
 # * `manage_clamav`
 #
 # Ensures the package clamav is installed, defaults to true
@@ -58,6 +54,10 @@
 #
 # The minute the crobjob will start. Please note that default a RANDOM
 # sleep is performed before starting the actual scan.
+#
+# * `scan_weekday`
+#
+# Day of the week to run the scan, may be a array. 
 #
 # * `may_delay`
 #
@@ -91,12 +91,12 @@ class ispprotect(
   $basedir = '/opt/ispprotect',
   $payload_url = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
   $scan_target = '/var/www/html',
-  $scan_frequency = 'daily',
   $manage_clamav = true,
+  $scan_weekday = '6',
   $scan_hour = '3',
   $scan_minute = '17',
   $max_delay = '300',
-  $mail_recipient = "root@$::fqdn",
+  $mail_recipient = "root@${::fqdn}",
 
 ) {
 
