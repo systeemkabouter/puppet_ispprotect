@@ -4,7 +4,7 @@
 class ispprotect::license {
 
   $license = $::ispprotect::license
-  $license_file = "${::ispprotect::basedir}/etc/license"
+  $basedir = $::ispprotect::basedir
 
   if $license == undef {
     notify { 'ISPProtect is commercial software, please purchase a license at https://ispprotect.com/': }
@@ -13,11 +13,11 @@ class ispprotect::license {
 
   } else {
 
-    file { $license_file :
+    file { "${basedir}/etc/license" :
       owner   => 'root',
       group   => 'root',
       mode    => '0440',
-      content => "${::ispprotect::license}\n"
+      content => "${license}\n"
     }
 
   }
