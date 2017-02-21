@@ -63,10 +63,6 @@ website, but may point at an internal distribution server.
 
 base directory that needs to be scanned using the payload. Defaults to '/var/www/html'
 
-* `scan_frequency`
-
-Set the scan frequency to daily or weekly. Defaults to daily
-
 * `manage_clamav`
 
 Ensures the package clamav is installed, defaults to true
@@ -79,6 +75,10 @@ The hour of the day the scan is scheduled to start.
 
 The minute the crobjob will start. Please note that default a RANDOM
 sleep is performed before starting the actual scan.
+
+* `scan_weekday`
+
+Day of the week to run the scan, may be a array.
 
 * `may_delay`
 
