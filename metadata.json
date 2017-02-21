@@ -1,6 +1,6 @@
 {
   "name": "eelcomaljaars-ispprotect",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "author": "Eelco Maljaars <eelco@maljaars-it.nl>",
   "summary": "Install and manage php malware scanner ispprotect.com",
   "license": "Apache-2.0",
@@ -10,5 +10,17 @@
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
+
+  "operatingsystem_support": [
+    {
+      "operatingsystem":"RedHat",
+      "operatingsystemrelease":[ "6.0", "7.0" ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "16.04" ]
+    }
+  ],
+
   "data_provider": null
 }
