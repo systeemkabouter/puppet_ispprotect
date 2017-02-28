@@ -46,6 +46,10 @@
 #
 # Ensures the package clamav is installed, defaults to true
 #
+# * `scheduled_scan`
+#
+# Wether or not a cron scheduled scan should be planned. Defaults to true
+#
 # * `scan_hour`
 #
 # The hour of the day the scan is scheduled to start.
@@ -57,7 +61,7 @@
 #
 # * `scan_weekday`
 #
-# Day of the week to run the scan, may be a array. 
+# Day of the week to run the scan, may be a array.
 #
 # * `may_delay`
 #
@@ -92,6 +96,7 @@ class ispprotect(
   $payload_url = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
   $scan_target = '/var/www/html',
   $manage_clamav = true,
+  $scheduled_scan = true,
   $scan_weekday = '6',
   $scan_hour = '3',
   $scan_minute = '17',

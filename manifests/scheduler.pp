@@ -2,6 +2,7 @@
 class ispprotect::scheduler {
 
   $basedir        = $ispprotect::basedir
+  $scheduled_scan = $ispprotect::scheduled_scan
   $scan_weekday   = $ispprotect::scan_weekday
   $scan_hour      = $ispprotect::scan_hour
   $scan_minute    = $ispprotect::scan_minute
@@ -22,10 +23,15 @@ class ispprotect::scheduler {
     minute  => '1',
   }
 
-  cron { 'ISPProtect scheduled scan':
-    command => "/bin/sleep $[ ( \$RANDOM % ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --non-interactive --force-yes --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key} >/dev/null",
-    hour    => $scan_hour,
-    weekday => $scan_weekday,
-    minute  => $scan_minute,
+  if $scheduled_scan {
+    cron { 'ISPProtect scheduled scan':
+      command => "/bin/sleep $[ ( \$RANDOM % ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --non-interactive --force-yes --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key} >/dev/null",
+      hour    => $scan_hour,
+      weekday => $scan_weekday,
+      minute  => $scan_minute,
+    }
+  } else {
+    cron { 'ISPProtect scheduled scan': ensure => 'absent', }
   }
+
 }

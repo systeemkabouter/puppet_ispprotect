@@ -67,6 +67,10 @@ base directory that needs to be scanned using the payload. Defaults to '/var/www
 
 Ensures the package clamav is installed, defaults to true
 
+* `scheduled_scan`
+
+Wether or not a cron scheduled scan should be planned. Defaults to true
+
 * `scan_hour`
 
 The hour of the day the scan is scheduled to start.
