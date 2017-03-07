@@ -1,12 +1,12 @@
 {
   "name": "eelcomaljaars-ispprotect",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Eelco Maljaars <eelco@maljaars-it.nl>",
   "summary": "Install and manage php malware scanner ispprotect.com",
   "license": "Apache-2.0",
-  "source": "https://github.com/eelcomaljaars/puppet_ispprotect/tree/development",
-  "project_page": "https://github.com/eelcomaljaars/puppet_ispprotect/",
-  "issues_url": "https://github.com/eelcomaljaars/puppet_ispprotect/issues",
+  "source": "https://devtools.maljaars-it.nl/opensource/puppet-ispprotect.git",
+  "project_page": "https://devtools.maljaars-it.nl/opensource/puppet-ispprotect",
+  "issues_url": "https://devtools.maljaars-it.nl/opensource/puppet-ispprotect/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
