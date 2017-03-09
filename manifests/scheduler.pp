@@ -19,11 +19,14 @@ class ispprotect::scheduler {
   }
 
   if $scheduled_update {
+    ## Note: for some reason unknown to man, ispp_scan wants to fiddle with
+    ##       terminal settings
     cron { 'ISPProtect scheduled scanner update':
-      command => "${basedir}/lib/ispp_scan --non-interactive --update --scan-key=${scan_key}",
-      hour    => $scan_hour,
-      weekday => $scan_weekday,
-      minute  => '1',
+      environment => 'TERM=dumb',
+      command     => "${basedir}/lib/ispp_scan --non-interactive --update --scan-key=${scan_key}",
+      hour        => $scan_hour,
+      weekday     => $scan_weekday,
+      minute      => '1',
     }
   } else {
     cron { 'ISPProtect scheduled scanner update': ensure => 'absent', }
@@ -31,10 +34,11 @@ class ispprotect::scheduler {
 
   if $scheduled_scan {
     cron { 'ISPProtect scheduled scan':
-      command => "/bin/sleep $[ ( \$RANDOM % ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --non-interactive --force-yes --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key} >/dev/null",
-      hour    => $scan_hour,
-      weekday => $scan_weekday,
-      minute  => $scan_minute,
+      environment => 'TERM=dumb',
+      command     => "/bin/sleep $[ ( \$RANDOM % ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --non-interactive --force-yes --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key} >/dev/null",
+      hour        => $scan_hour,
+      weekday     => $scan_weekday,
+      minute      => $scan_minute,
     }
   } else {
     cron { 'ISPProtect scheduled scan': ensure => 'absent', }
