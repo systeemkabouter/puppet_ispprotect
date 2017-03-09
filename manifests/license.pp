@@ -3,17 +3,17 @@
 # evaluation license
 class ispprotect::license {
 
-  $license = $::ispprotect::license
-  $basedir = $::ispprotect::basedir
+  $license = $ispprotect::license
+  $basedir = $ispprotect::basedir
 
   if $license == undef {
     notify { 'ISPProtect is commercial software, please purchase a license at https://ispprotect.com/': }
 
-    file { $license_file : ensure => 'absent', }
+    file { "${basedir}/etc/license": ensure => 'absent', }
 
   } else {
 
-    file { "${basedir}/etc/license" :
+    file { "${basedir}/etc/license":
       owner   => 'root',
       group   => 'root',
       mode    => '0440',

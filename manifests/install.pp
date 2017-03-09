@@ -1,11 +1,11 @@
 # downloads and installs the ISPProtect archive
 class ispprotect::install {
 
-  $basedir = $::ispprotect::basedir
-  $payload_url = $::ispprotect::payload_url
-  $manage_clamav = $::ispprotect::manage_clamav
+  $basedir = $ispprotect::basedir
+  $payload_url = $ispprotect::payload_url
+  $manage_clamav = $ispprotect::manage_clamav
 
-  $skeleton = [$basedir, "${basedir}/bin", "${basedir}/tmp", "${basedir}/lib"]
+  $skeleton = [$basedir, "${basedir}/bin", "${basedir}/tmp", "${basedir}/lib", "${basedir}/etc"]
 
   if $manage_clamav {
     package { 'clamav': ensure => 'present', }
@@ -15,7 +15,7 @@ class ispprotect::install {
     ensure => 'directory',
     owner  => 'root',
     group  => 'root',
-    mode   => '0550'
+    mode   => '0550',
   } ->
 
   exec { 'fetch_payload':

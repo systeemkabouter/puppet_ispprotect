@@ -23,13 +23,11 @@
 # Variables
 # ----------
 #
+# Here you should define a list of variables that this module would require.
+#
 # * `license`
 #
 # The commercial license that was obtained.
-#
-# * `manage_license`
-#
-# Whether the license material should managed by this module. Defaults to true.
 #
 # * `basedir`
 #
@@ -44,13 +42,17 @@
 #
 # base directory that needs to be scanned using the payload. Defaults to '/var/www/html'
 #
-# * `scan_frequency`
-#
-# Set the scan frequency to daily or weekly. Defaults to daily
-#
 # * `manage_clamav`
 #
 # Ensures the package clamav is installed, defaults to true
+#
+# * `scheduled_scan`
+#
+# Wether or not a cron scheduled scan should be planned. Defaults to true
+#
+# * `scheduled_update`
+#
+# Wether or not a cron scheduled update should be planned. Defaults to true
 #
 # * `scan_hour`
 #
@@ -60,6 +62,10 @@
 #
 # The minute the crobjob will start. Please note that default a RANDOM
 # sleep is performed before starting the actual scan.
+#
+# * `scan_weekday`
+#
+# Day of the week to run the scan, may be a array.
 #
 # * `may_delay`
 #
@@ -87,15 +93,16 @@
 #
 # Copyright 2017 Maljaars IT / Erasmus University Rotterdam
 #
-class ispprotect (
+class ispprotect(
 
   $license = undef,
-  $manage_license = true,
   $basedir = '/opt/ispprotect',
   $payload_url = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
   $scan_target = '/var/www/html',
-  $scan_frequency = 'daily',
   $manage_clamav = true,
+  $scheduled_scan = true,
+  $scheduled_update = true,
+  $scan_weekday = '6',
   $scan_hour = '3',
   $scan_minute = '17',
   $max_delay = '300',
@@ -103,10 +110,8 @@ class ispprotect (
 
 ) {
 
-  contain ::ispprotect::install
-  if $manage_license {
-    contain ::ispprotect::license
-  }
-  contain ::ispprotect::scheduler
+  contain ispprotect::install
+  contain ispprotect::license
+  contain ispprotect::scheduler
 
 }
