@@ -22,7 +22,7 @@ class ispprotect::scheduler {
   if $scheduled_update {
     cron { 'ISPProtect scheduled scanner update':
       ensure  => $ensure,
-      command => "${basedir}/lib/ispp_scan --non-interactive --update --scan-key=${scan_key}",
+      command => "${basedir}/lib/ispp_scan --non-interactive --update --scan-key=${scan_key} >/dev/null",
       hour    => $scan_hour,
       weekday => $scan_weekday,
       minute  => '1',
