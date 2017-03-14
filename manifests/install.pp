@@ -32,9 +32,9 @@ class ispprotect::install {
   } else {
 
     file { $skeleton:
-      ensure => 'absent',
+      ensure  => 'absent',
       recurse => true,
-      force => true,
+      force   => true,
     }
 
   }

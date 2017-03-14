@@ -31,10 +31,18 @@ class ispprotect::scheduler {
     cron { 'ISPProtect scheduled scanner update': ensure => 'absent', }
   }
 
+  file { "${basedir}/bin/run_ispprotect.sh":
+    ensure  => $ensure,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0550',
+    content => template("${module_name}/run_ispprotect.sh.erb"),
+  }
+
   if $scheduled_scan {
     cron { 'ISPProtect scheduled scan':
       ensure  => $ensure,
-      command => "/bin/sleep $[ ( \$RANDOM % ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --non-interactive --force-yes --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key} >/dev/null",
+      command => "${basedir}/bin/run_ispprotect.sh",
       hour    => $scan_hour,
       weekday => $scan_weekday,
       minute  => $scan_minute,

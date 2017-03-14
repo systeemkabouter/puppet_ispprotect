@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+# sleep a random amount of time
+/bin/sleep $[ ( $RANDOM % <%= @max_delay %> )  + 1 ]s
+
+<%= @basedir %>/lib/ispp_scan --non-interactive --force-yes --email-results=<%= @mail_recipient %> \
+ --path=<%= @scan_target %> --scan-key=<%= @scan_key %> >/dev/null
