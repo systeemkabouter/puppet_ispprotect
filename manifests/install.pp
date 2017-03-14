@@ -1,31 +1,41 @@
 # downloads and installs the ISPProtect archive
 class ispprotect::install {
 
-  $basedir = $ispprotect::basedir
-  $payload_url = $ispprotect::payload_url
+  $basedir       = $ispprotect::basedir
+  $payload_url   = $ispprotect::payload_url
   $manage_clamav = $ispprotect::manage_clamav
+  $ensure        = $ispprotect::ensure
 
   $skeleton = [$basedir, "${basedir}/bin", "${basedir}/tmp", "${basedir}/lib", "${basedir}/etc"]
 
   if $manage_clamav {
-    package { 'clamav': ensure => 'present', }
+    package { 'clamav': ensure => $ensure, }
   }
 
-  file { $skeleton:
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0550'
-  } ->
+  if $ensure == 'present' {
+    file { $skeleton:
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0550'
+    } ->
 
-  exec { 'fetch_payload':
-    command => "/usr/bin/curl ${payload_url} -o ${basedir}/tmp/ispp_scan.tar.gz",
-    creates => "${basedir}/tmp/ispp_scan.tar.gz",
-  } ->
+    exec { 'fetch_payload':
+      command => "/usr/bin/curl ${payload_url} -o ${basedir}/tmp/ispp_scan.tar.gz",
+      creates => "${basedir}/tmp/ispp_scan.tar.gz",
+    } ->
 
-  exec { 'unpack_payload':
-    command => "/bin/tar -xf ${basedir}/tmp/ispp_scan.tar.gz --directory ${basedir}/lib/",
-    creates => "${basedir}/lib/ispp_scan.php",
+    exec { 'unpack_payload':
+      command => "/bin/tar -xf ${basedir}/tmp/ispp_scan.tar.gz --directory ${basedir}/lib/",
+      creates => "${basedir}/lib/ispp_scan.php",
+    }
+  } else {
+
+    file { $skeleton:
+      ensure => 'absent',
+      recurse => true,
+      force => true,
+    }
+
   }
-
 }

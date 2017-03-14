@@ -1,6 +1,6 @@
 {
   "name": "eelcomaljaars-ispprotect",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "author": "Eelco Maljaars <eelco@maljaars-it.nl>",
   "summary": "Install and manage php malware scanner ispprotect.com",
   "license": "Apache-2.0",

@@ -50,6 +50,12 @@ class { 'ispprotect':
 
 The commercial license that was obtained.
 
+* `ensure`
+
+Wether to add or remove defined resources. Defaults to present,
+can be set to absent to remove ISPProtect. Does this on best effort
+basis, YMMV. Please test this before actually using.
+
 * `basedir`
 
 Directory under where to install the payload and helper files.
@@ -70,6 +76,10 @@ Ensures the package clamav is installed, defaults to true
 * `scheduled_scan`
 
 Wether or not a cron scheduled scan should be planned. Defaults to true
+
+* `scheduled_update`
+
+Wether or not a cron scheduled update should be planned. Defaults to true
 
 * `scan_hour`
 

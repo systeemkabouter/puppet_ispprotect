@@ -29,6 +29,12 @@
 #
 # The commercial license that was obtained.
 #
+# * `ensure`
+#
+# Wether to add or remove defined resources. Defaults to present,
+# can be set to absent to remove ISPProtect. Does this on best effort
+# basis, YMMV. Please test this before actually using.
+#
 # * `basedir`
 #
 # Directory under where to install the payload and helper files.
@@ -49,6 +55,10 @@
 # * `scheduled_scan`
 #
 # Wether or not a cron scheduled scan should be planned. Defaults to true
+#
+# * `scheduled_update`
+#
+# Wether or not a cron scheduled update should be planned. Defaults to true
 #
 # * `scan_hour`
 #
@@ -91,17 +101,19 @@
 #
 class ispprotect(
 
-  $license = undef,
-  $basedir = '/opt/ispprotect',
-  $payload_url = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
-  $scan_target = '/var/www/html',
-  $manage_clamav = true,
-  $scheduled_scan = true,
-  $scan_weekday = '6',
-  $scan_hour = '3',
-  $scan_minute = '17',
-  $max_delay = '300',
-  $mail_recipient = "root@${::fqdn}",
+  $license          = undef,
+  $ensure           = 'present',
+  $basedir          = '/opt/ispprotect',
+  $payload_url      = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
+  $scan_target      = '/var/www/html',
+  $manage_clamav    = true,
+  $scheduled_scan   = true,
+  $scheduled_update = true,
+  $scan_weekday     = '6',
+  $scan_hour        = '3',
+  $scan_minute      = '17',
+  $max_delay        = '300',
+  $mail_recipient   = "root@${::fqdn}",
 
 ) {
 
