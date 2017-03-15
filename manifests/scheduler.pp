@@ -35,7 +35,7 @@ class ispprotect::scheduler {
   if $scheduled_scan {
     cron { 'ISPProtect scheduled scan':
       environment => 'TERM=dumb',
-      command     => "/bin/sleep $[ ( \$RANDOM % ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --non-interactive --force-yes --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key} >/dev/null",
+      command     => "/bin/sleep $[ ( \$RANDOM \\% ${max_delay} )  + 1 ]s && ${basedir}/lib/ispp_scan --non-interactive --force-yes --email-results=${mail_recipient} --path=${scan_target} --scan-key=${scan_key} >/dev/null",
       hour        => $scan_hour,
       weekday     => $scan_weekday,
       minute      => $scan_minute,
