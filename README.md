@@ -77,10 +77,6 @@ Ensures the package clamav is installed, defaults to true
 
 Wether or not a cron scheduled scan should be planned. Defaults to true
 
-* `scheduled_update`
-
-Wether or not a cron scheduled update should be planned. Defaults to true
-
 * `scan_hour`
 
 The hour of the day the scan is scheduled to start.

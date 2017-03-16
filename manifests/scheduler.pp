@@ -19,17 +19,7 @@ class ispprotect::scheduler {
     $scan_key="${basedir}/etc/license"
   }
 
-  if $scheduled_update {
-    cron { 'ISPProtect scheduled scanner update':
-      ensure  => $ensure,
-      command => "${basedir}/lib/ispp_scan --non-interactive --update --scan-key=${scan_key} >/dev/null",
-      hour    => $scan_hour,
-      weekday => $scan_weekday,
-      minute  => '1',
-    }
-  } else {
-    cron { 'ISPProtect scheduled scanner update': ensure => 'absent', }
-  }
+  cron { 'ISPProtect scheduled scanner update': ensure => 'absent', }
 
   file { "${basedir}/bin/run_ispprotect.sh":
     ensure  => $ensure,
