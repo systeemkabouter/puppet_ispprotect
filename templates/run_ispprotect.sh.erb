@@ -4,6 +4,13 @@
 # sleep a random amount of time
 /bin/sleep $[ ( $RANDOM % <%= @max_delay %> )  + 1 ]s
 
+<% unless @webproxy.nil? -%>
+export HTTPS_PROXY=<%= @webproxy %>
+export HTTP_PROXY=<%= @webproxy %>
+export http_proxy=<%= @webproxy %>
+export https_proxy=<%= @webproxy %>
+<% end -%>
+
 <%= @basedir %>/lib/ispp_scan --update --quiet >/dev/null
 <%= @basedir %>/lib/ispp_scan --non-interactive --force-yes --email-results=<%= @mail_recipient %> \
- --path=<%= @scan_target %> --scan-key=<%= @scan_key %> >/dev/null
+ --path=<%= @scan_target %> --scan-key=<%= @scan_key %> --whitelist-path=<%= @whitelist_path %> >/dev/null

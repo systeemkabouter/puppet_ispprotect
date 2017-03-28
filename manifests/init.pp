@@ -110,6 +110,8 @@ class ispprotect(
   $scan_minute      = '17',
   $max_delay        = '300',
   $mail_recipient   = "root@${::fqdn}",
+  $webproxy          = undef,
+  $whitelist_path   = "${basedir}/etc/ispp_scan_whitelist"
 
 ) {
 

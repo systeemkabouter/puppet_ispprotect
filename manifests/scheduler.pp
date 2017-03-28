@@ -12,6 +12,8 @@ class ispprotect::scheduler {
   $license          = $ispprotect::license
   $mail_recipient   = $ispprotect::mail_recipient
   $ensure           = $ispprotect::ensure
+  $webproxy         = $ispprotect::webproxy
+  $whitelist_path    = $ispprotect::whitelist_path
 
   if $license == undef {
     $scan_key='TRIAL'
