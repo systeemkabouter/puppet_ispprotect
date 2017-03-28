@@ -77,6 +77,16 @@
 #
 # The email address to sent reports to.
 #
+# * `whitelist_path`
+#
+# Specify the location where to find the ispp_scan whitelist. This file
+# should contain MD5 hashes of files excluded from scanning by using the
+# ispp_scan --whitelist option.
+#
+# * `webproxy`
+#
+# Optional webproxy to use during the install and running of ISPProtect
+#
 # Examples
 # --------
 #
