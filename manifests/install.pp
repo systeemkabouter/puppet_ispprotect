@@ -25,8 +25,8 @@ class ispprotect::install {
     } ->
 
     exec { 'fetch_payload':
-      command => "/usr/bin/curl ${payload_url} -o ${basedir}/tmp/ispp_scan.tar.gz",
-      creates => "${basedir}/tmp/ispp_scan.tar.gz",
+      command     => "/usr/bin/curl ${payload_url} -o ${basedir}/tmp/ispp_scan.tar.gz",
+      creates     => "${basedir}/tmp/ispp_scan.tar.gz",
       environment => $curl_environment,
     } ->
 
