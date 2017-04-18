@@ -101,19 +101,20 @@
 #
 class ispprotect(
 
-  $license          = undef,
-  $ensure           = 'present',
-  $basedir          = '/opt/ispprotect',
-  $payload_url      = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
-  $scan_target      = '/var/www/html',
-  $manage_clamav    = true,
-  $scheduled_scan   = true,
-  $scheduled_update = true,
-  $scan_weekday     = '6',
-  $scan_hour        = '3',
-  $scan_minute      = '17',
-  $max_delay        = '300',
-  $mail_recipient   = "root@${::fqdn}",
+  $license             = undef,
+  $ensure              = 'present',
+  $basedir             = '/opt/ispprotect',
+  $payload_url         = 'https://www.ispprotect.com/download/ispp_scan.tar.gz',
+  $scan_target         = '/var/www/html',
+  $manage_clamav       = true,
+  $scheduled_scan      = true,
+  $scheduled_update    = true,
+  $scan_weekday        = '6',
+  $scan_hour           = '3',
+  $scan_minute         = '17',
+  $max_delay           = '300',
+  $mail_recipient      = "root@${::fqdn}",
+  $email_empty_results = false,
 
 ) {
 
