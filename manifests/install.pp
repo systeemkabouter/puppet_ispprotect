@@ -5,6 +5,7 @@ class ispprotect::install {
   $payload_url   = $ispprotect::payload_url
   $manage_clamav = $ispprotect::manage_clamav
   $ensure        = $ispprotect::ensure
+  $webproxy      = $ispprotect::webproxy
 
   $skeleton = [$basedir, "${basedir}/bin", "${basedir}/tmp", "${basedir}/lib", "${basedir}/etc"]
 
@@ -13,6 +14,9 @@ class ispprotect::install {
   }
 
   if $ensure == 'present' {
+
+    if $webproxy != undef  { $curl_environment="http_proxy=${webproxy} https_proxy=${webproxy}" }
+
     file { $skeleton:
       ensure => 'directory',
       owner  => 'root',
@@ -21,14 +25,17 @@ class ispprotect::install {
     } ->
 
     exec { 'fetch_payload':
-      command => "/usr/bin/curl ${payload_url} -o ${basedir}/tmp/ispp_scan.tar.gz",
-      creates => "${basedir}/tmp/ispp_scan.tar.gz",
+      command     => "/usr/bin/curl ${payload_url} -o ${basedir}/tmp/ispp_scan.tar.gz",
+      creates     => "${basedir}/tmp/ispp_scan.tar.gz",
+      environment => $curl_environment,
     } ->
 
     exec { 'unpack_payload':
       command => "/bin/tar -xf ${basedir}/tmp/ispp_scan.tar.gz --directory ${basedir}/lib/",
       creates => "${basedir}/lib/ispp_scan.php",
     }
+
+
   } else {
 
     file { $skeleton:

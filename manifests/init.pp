@@ -56,10 +56,6 @@
 #
 # Wether or not a cron scheduled scan should be planned. Defaults to true
 #
-# * `scheduled_update`
-#
-# Wether or not a cron scheduled update should be planned. Defaults to true
-#
 # * `scan_hour`
 #
 # The hour of the day the scan is scheduled to start.
@@ -114,7 +110,10 @@ class ispprotect(
   $scan_minute         = '17',
   $max_delay           = '300',
   $mail_recipient      = "root@${::fqdn}",
+  $webproxy            = undef,
+  $whitelist_path      = "${basedir}/etc/ispp_scan_whitelist",
   $email_empty_results = false,
+
 
 ) {
 

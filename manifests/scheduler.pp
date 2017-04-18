@@ -1,6 +1,7 @@
 # manages the cronjob to run ISPProtect
 class ispprotect::scheduler {
 
+<<<<<<< HEAD
   $basedir             = $ispprotect::basedir
   $scheduled_scan      = $ispprotect::scheduled_scan
   $scheduled_update    = $ispprotect::scheduled_update
@@ -12,6 +13,8 @@ class ispprotect::scheduler {
   $license             = $ispprotect::license
   $mail_recipient      = $ispprotect::mail_recipient
   $ensure              = $ispprotect::ensure
+  $webproxy            = $ispprotect::webproxy
+  $whitelist_path      = $ispprotect::whitelist_path
   $email_empty_results = $ispprotect::email_empty_results
 
   if $license == undef {
@@ -25,17 +28,8 @@ class ispprotect::scheduler {
     false => undef,
   }
 
-  if $scheduled_update {
-    cron { 'ISPProtect scheduled scanner update':
-      ensure  => $ensure,
-      command => "${basedir}/lib/ispp_scan --non-interactive --update --scan-key=${scan_key} >/dev/null",
-      hour    => $scan_hour,
-      weekday => $scan_weekday,
-      minute  => '1',
-    }
-  } else {
-    cron { 'ISPProtect scheduled scanner update': ensure => 'absent', }
-  }
+
+  cron { 'ISPProtect scheduled scanner update': ensure => 'absent', }
 
   file { "${basedir}/bin/run_ispprotect.sh":
     ensure  => $ensure,
