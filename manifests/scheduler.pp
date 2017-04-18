@@ -1,7 +1,6 @@
 # manages the cronjob to run ISPProtect
 class ispprotect::scheduler {
 
-<<<<<<< HEAD
   $basedir             = $ispprotect::basedir
   $scheduled_scan      = $ispprotect::scheduled_scan
   $scheduled_update    = $ispprotect::scheduled_update

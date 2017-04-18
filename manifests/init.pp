@@ -77,6 +77,19 @@
 #
 # The email address to sent reports to.
 #
+#
+# * `email_empty_results`
+#
+# Send a report even when there are no findings. Defaults to false
+#
+# * `webproxy`
+#
+# Configure a webproxy to connect to ispprotect.com for updates etc. Defaults
+# to undef
+#
+# * `whitelist_path`
+#
+# Location of the whitelist table / file. Defaults to $basedir/etc/ispp_scan_whitelist
 # Examples
 # --------
 #
