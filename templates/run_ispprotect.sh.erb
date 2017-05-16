@@ -15,4 +15,4 @@ export https_proxy=<%= @webproxy %>
 
 <%= @basedir %>/lib/ispp_scan --non-interactive --force-yes --email-results=<%= @mail_recipient %> \
  --path=<%= @scan_target %> --scan-key=<%= @scan_key %>  <%= @email_empty_results_string %> \
- --whitelist-path=<%= @whitelist_path %>   /dev/null
+ --whitelist-path=<%= @whitelist_path %>  > /dev/null
