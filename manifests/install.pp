@@ -15,7 +15,7 @@ class ispprotect::install {
 
   if $ensure == 'present' {
 
-    if $webproxy != undef  { $curl_environment="http_proxy=${webproxy} https_proxy=${webproxy}" }
+    if $webproxy != undef  { $curl_environment=["http_proxy=${webproxy}", "https_proxy=${webproxy}"] }
 
     file { $skeleton:
       ensure => 'directory',
@@ -31,7 +31,7 @@ class ispprotect::install {
     } ->
 
     exec { 'unpack_payload':
-      command => "/bin/tar -xf ${basedir}/tmp/ispp_scan.tar.gz --directory ${basedir}/lib/",
+      command => "/bin/tar -xzf ${basedir}/tmp/ispp_scan.tar.gz --directory ${basedir}/lib/",
       creates => "${basedir}/lib/ispp_scan.php",
     }
 
